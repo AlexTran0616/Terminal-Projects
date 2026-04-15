@@ -1,7 +1,17 @@
 import curses
+import random
 
 game_width = 25
 game_height = 20
+
+def fruit():
+    fruitPosition = (0, 0)
+    
+    fruitPosition_Y = random.randint(0,24)
+    fruitPosition_X = random.randint(0,24)
+
+    fruitPosition = (fruitPosition_Y, fruitPosition_X)
+    return fruitPosition
 
 def main(stdscr):
     curses.curs_set(0)
@@ -38,4 +48,6 @@ def main(stdscr):
 
         position[0] = max(0, min(game_height - 1, position[0]))
         position[1] = max(0, min(game_width - 1, position[1]))
+
 curses.wrapper(main)
+fruit()

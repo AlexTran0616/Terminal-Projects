@@ -76,12 +76,11 @@ def main(stdscr):
             stdscr.addstr(fruitPosition[0], fruitPosition[1]*3, " X ")
             isFruit = True
 
-        stdscr.refresh()
 
         key = stdscr.getch()
         if key == ord('x'):
             gameOn = False
-        
+
         if key == ord('w'):
             direction = (-1, 0)
         elif key == ord('a'):
@@ -92,12 +91,13 @@ def main(stdscr):
             direction = (0, 1)
 
 
-
-
         position[0] += direction[0]
         position[1] += direction[1]
 
-        position[0] = max(1, min(game_height - 1, position[0]))
-        position[1] = max(1, min(game_width - 1, position[1]))
+        if position[0] != max(1, min(game_height - 1, position[0])):
+            gameOn = False
+
+        if position[1] != max(1, min(game_width - 1, position[1])):
+            gameOn = False
 
 curses.wrapper(main)

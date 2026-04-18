@@ -4,6 +4,7 @@ import numpy as np
 
 game_width = 20
 game_height = 20
+
 def newFruitPosition():
     fruitPosition = (0, 0)
     
@@ -40,7 +41,8 @@ def main(stdscr):
     
     while(gameOn):
         stdscr.clear()
-
+        
+        # GAME BOARD
         for y in range(game_height+1):
             for x in range(game_width+1): 
                 if [y, x] == position:
@@ -55,11 +57,7 @@ def main(stdscr):
                         if position == [previousPositionY[game_height*game_width - i - 1], previousPositionX[game_width*game_height - i - 1]]:
                             gameOn = False
 
-        if position == fruitPosition:
-            isFruit = False
-            points = points + 1
-            stdscr.addstr(fruitPosition[0], fruitPosition[1]*3, "   ", curses.A_STANDOUT)
-
+        # POINTS
         stdscr.addstr(game_height + 1, 1, f"points: {points}")
         previousPositionX.append(position[1])        
         previousPositionY.append(position[0])     
@@ -69,6 +67,11 @@ def main(stdscr):
         if len(previousPositionY) > game_height * game_width:
             previousPositionY.pop(0);
         
+        # FRUIT
+        if position == fruitPosition:
+            isFruit = False
+            points = points + 1
+            stdscr.addstr(fruitPosition[0], fruitPosition[1]*3, "   ", curses.A_STANDOUT)
         if isFruit:
             stdscr.addstr(fruitPosition[0], fruitPosition[1]*3, " X ")
         else:
